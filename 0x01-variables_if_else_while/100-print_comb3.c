@@ -1,23 +1,28 @@
+
 #include <stdio.h>
 
 /**
- *main - print 0-9 separated with commas, using putchar
+ *main - Entry point, print 00 to 99 using putchar
  *Return: Always 0 (Success)
  */
 
 int main(void)
 {
-	int n = '0';
+	int tens;
+	int ones;
 
-	while (n <= '9')
+	for (tens = '0'; tens <= '9'; tens++) /*print tens place*/
 	{
-		putchar(n);
-		if (n != '9')
+		for (ones = '0'; ones <= '9'; ones++) /*print ones place*/
 		{
-			putchar(',');
-			putchar(' ');
+			putchar(tens);
+			putchar(ones);
+			if (!(tens == '9' && ones == '9')) /*skip comma at end*/
+			{
+				putchar(',');
+				putchar(' ');
+			}
 		}
-		n++;
 	}
 	putchar('\n');
 
