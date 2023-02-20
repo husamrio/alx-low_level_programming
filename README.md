@@ -11,7 +11,7 @@
 * Language: C
 * OS: Ubuntu 22.04 LTS
 * Compiler: gcc 4.8.4
-* Style guidelines: [Betty style](https://github.com/holbertonschool/Betty/wiki)
+* Style guidelines: [Betty style](https://github.com/Betty/wiki)
 
 ---
 ### Authors
