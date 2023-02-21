@@ -13,7 +13,7 @@
 
 ## Synopsis
 
-This project introduces functions and nested loops in C programming. Each .c file contains a different function while the holberton.h file contains all the function prototypes.
+This project introduces functions and nested loops in C programming. Each .c file contains a different function while the h file contains all the function prototypes.
 
 ### Description of what each file does
 0. prints "0-putchar.c"
