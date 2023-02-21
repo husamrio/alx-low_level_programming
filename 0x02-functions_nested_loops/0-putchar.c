@@ -2,7 +2,7 @@
 
 
 /**
- * main - print 0-putchar.c,followed by new line
+ * main - print 0-putchar.c, followed by new line
  * Return: 0
  */
 
