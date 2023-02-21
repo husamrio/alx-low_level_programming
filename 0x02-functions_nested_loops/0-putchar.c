@@ -1,18 +1,23 @@
 #include "main.h"
+
 /**
- * main - main block
+ * main - print _puntchar, followed by new line
  * Return: 0
- **/
+ */
+
 int main(void)
 {
-	char x[] = "_putchar";
-
-	int k;
-
-	for (k = 0; k < 8; k++)
-	{
-		_putchar(x[k]);
-	}
+	_putchar('_');
+	_putchar('p');
+	_putchar('u');
+	_putchar('t');
+	_putchar('c');
+	_putchar('h');
+	_putchar('a');
+	_putchar('r');
 	_putchar('\n');
+
 	return (0);
 }
+
+
