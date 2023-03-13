@@ -6,6 +6,7 @@
  * @size: size of array to create
  * @c: char to initialize with?
  * Return: char value
+ * alhamdulilah
  */
 char *create_array(unsigned int size, char c)
 {
