@@ -1,4 +1,4 @@
-# 0x0B. C - malloc, free
+# 0x0A. C - malloc, free
 
 What you should learn from this project
 At the end of this project you are expected to be able to explain to anyone,
