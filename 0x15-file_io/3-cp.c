@@ -52,10 +52,10 @@ exit(100);
 * Return: 0 on positive results.
 *
 * Descript incase the argument count is incorrect - exit code 97.
-*              Incase file_from does not exist or cannot be read - exit code 98.
-*              Incase file_to cannot be created or written to - exit code 99.
-*              Incase file_to or file_from cannot be closed - exit code 100
-*              ............................................................
+* Incase file_from does not exist or cannot be read - exit code 98.
+* Incase file_to cannot be created or written to - exit code 99.
+* Incase file_to or file_from cannot be closed - exit code 100
+*............................................................
 */
 int main(int argc, char *argv[])
 {
