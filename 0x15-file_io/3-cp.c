@@ -2,79 +2,103 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char *create_buffer(char *file);
+void close_file(int fd);
+
 /**
-* This function creates a buffer of size of 1024 bytes for reading data.
-* The buffer is used to read data from a file if the buffer cannot be allocated an error message is dis   played
-* If allocation fails, it prints an error message and exits the program with code 1.
+* create_buffer - Gives 1024 bytes for a buffer.
+* @file:file name for buffer is storing chars .
+*
+* Return: Pointer to newly-allocated buffer.
 */
-char *create_buffer(void) {
-char *buffer = malloc(1024);
+char *create_buffer(char *file)
+{
+char *buffer;
 
-if (buffer == NULL) {
-perror("Error: Unable to allocate memory for buffer.");
-exit(1);
+buffer = malloc(sizeof(char) * 1024);
+
+if (buffer == NULL)
+{
+dprintf(STDERR_FILENO,
+"Error: Can't write to %s\n", file);
+exit(99);
 }
 
-return buffer;
+return (buffer);
 }
 
-// Closes file descriptor passed as a parameter.
-// Should closing the file fails, prints an error message and exits the program with code 1.
-void close_fd(int fd) {
-if (close(fd) == -1) {
-perror("Error: Unable to close file descriptor.");
-exit(1);
+/**
+* close_file - Closes file descpt......
+* @fd: The file descrip to be closed..........
+*/
+void close_file(int fd)
+{
+int c;
+
+c = close(fd);
+
+if (c == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+exit(100);
 }
 }
 
-// Copies the contents of one file to another file.
-// Should the number of arguments be incorrect, it prints a usage message and exits the program with code 1.
-// Incase the source file cannot be opened or read, it prints an error message and exits the program with code 1.
-// Incase the destination file cannot be created or written to, it prints an error message and exits the program with code 1.
-int main(int argc, char *argv[]) {
-if (argc != 3) {
-fprintf(stderr, "Usage: %s source_file destination_file\n", argv[0]);
-exit(1);
+/**
+* main - Replicates contents of file to another file.
+* @argc: The no of arguments given to the program.
+* @argv: Array of pointers to the arguments.
+* .........................................
+* Return: 0 on positive results.
+*
+* Descript incase the argument count is incorrect - exit code 97.
+*              Incase file_from does not exist or cannot be read - exit code 98.
+*              Incase file_to cannot be created or written to - exit code 99.
+*              Incase file_to or file_from cannot be closed - exit code 100
+*              ............................................................
+*/
+int main(int argc, char *argv[])
+{
+int from, to, r, w;
+char *buffer;
+
+if (argc != 3)
+{
+dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+exit(97);
 }
 
-char *buffer = create_buffer();
-int source_fd = open(argv[1], O_RDONLY);
-int dest_fd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-
-if (source_fd == -1) {
-perror("Error: Unable to open source file.");
-exit(1);
-}
-
-if (dest_fd == -1) {
-perror("Error: Unable to create or write to destination file.");
-exit(1);
-}
-
-ssize_t read_size, write_size;
+buffer = create_buffer(argv[2]);
+from = open(argv[1], O_RDONLY);
+r = read(from, buffer, 1024);
+to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 do {
-read_size = read(source_fd, buffer, 1024);
-
-if (read_size == -1) {
-perror("Error: Unable to read from source file.");
+if (from == -1 || r == -1)
+{
+dprintf(STDERR_FILENO,
+"Error: Can't read from file %s\n", argv[1]);
 free(buffer);
-exit(1);
+exit(98);
 }
 
-write_size = write(dest_fd, buffer, read_size);
-
-if (write_size == -1) {
-perror("Error: Unable to write to destination file.");
+w = write(to, buffer, r);
+if (to == -1 || w == -1)
+{
+dprintf(STDERR_FILENO,
+"Error: Can't write to %s\n", argv[2]);
 free(buffer);
-exit(1);
-}
-} while (read_size > 0);
-
-free(buffer);
-close_fd(source_fd);
-close_fd(dest_fd);
-
-return 0;
+exit(99);
 }
 
+r = read(from, buffer, 1024);
+to = open(argv[2], O_WRONLY | O_APPEND);
+
+} while (r > 0);
+
+free(buffer);
+close_file(from);
+close_file(to);
+
+return (0);
+}
