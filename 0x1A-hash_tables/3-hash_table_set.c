@@ -1,14 +1,16 @@
 #include "hash_tables.h"
 
 /**
-* create_and_add_node - Allocate memory, assign values, and insert a node into the hash table.
+* create_and_add_node - Allocate memory, assign values,
+* and insert a node into the hash table.
 * @ht: The hash table.
 * @key: The key (must not be an empty string).
 * @value: The value.
 * @idx: The index where the node should be inserted in the hash table.
 * Return: 1 if successful, 0 if failed.
 */
-int create_and_add_node(table_t *ht, const char *key, const char *value, ulint idx)
+int create_and_add_node(table_t *ht, const char *key,
+const char *value, ulint idx)
 {
 node_t *node = NULL;
 char *k;
