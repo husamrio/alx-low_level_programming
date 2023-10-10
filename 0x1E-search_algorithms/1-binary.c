@@ -1,40 +1,60 @@
 #include "search_algos.h"
 
 /**
- * *************************************
- * binary_search - Binary search algorith
- * *************************************
- * @array: An array of integers
+ * print_arr - helper func to print array
+ * everytime array is halved
+ * *********************************
+ * @array: array
+ * *********************************
+ * @l: left index of original array
+ * *********************************
+ * @r: right index of original array
+ * **********************************
+ */
+void print_arr(int *array, size_t l, size_t r)
+{
+	size_t i = 0;
+
+	printf("Searching in array: ");
+	for (i = l; i <= r; i++)
+	{
+		if (i != r)
+			printf("%d, ", array[i]);
+		else
+			printf("%d\n", array[i]);
+	}
+}
+
+/**
+ * binary_search - search mids
  * ****************************
- * @size: size of the array/list
+ * @array: given array of ints
+ * ****************************
+ * @size: size of array
+ * ****************************
+ * @value: value to search for
  * *****************************
- * @value: value to find
- * *****************************
- * Return: index of the element in the array or -1
+ * Return: index at which value's found
  */
 int binary_search(int *array, size_t size, int value)
 {
-	size_t i, start, stop;
+	size_t mid = 0;
+	size_t l = 0;
+	size_t r = size - 1;
 
-	if (!size)
-		goto KILL;
+	if (!array)
+		return (-1);
 
-	stop = size - 1;
-	i = stop / 2;
-	start = 0;
-
-	for (; start <= stop;)
+	while (l <= r)
 	{
-		printf("Searching in array: ");
-		print_array(array, start, stop);
-		if (value == array[i])
-			return (i);
-		else if (value < array[i])
-			stop = i - 1;
+		print_arr(array, l, r);
+		mid = (l + r) / 2;
+		if (array[mid] == value)
+			return (mid);
+		else if (array[mid] > value)
+			r = mid - 1;
 		else
-			start = i + 1;
-		i = (stop - start) / 2;
-		i += start;
+			l = mid + 1;
 	}
-KILL:	return (-1);
+	return (-1);
 }
