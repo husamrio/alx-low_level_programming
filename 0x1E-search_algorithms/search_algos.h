@@ -59,5 +59,6 @@ void print_array(int *array, size_t l, size_t r);
 listint_t *jump_list(listint_t *list, size_t size, int value);
 listint_t *create_list(int *array, size_t size);
 void free_skiplist(skiplist_t *list);
+skiplist_t *linear_skip(skiplist_t *list, int value);
 
 #endif
